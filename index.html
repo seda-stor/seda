@@ -58,7 +58,17 @@
         .thumb-img, .thumb-video-btn { width: 50px; height: 50px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
         .thumb-video-btn { background: #ff0000; color: white; font-size: 18px; }
 
-        .form-box { background: white; padding: 20px; border-radius: 15px; width: 100%; max-width: 450px; max-height: 90vh; overflow-y: auto; box-sizing: border-box; position: relative; }
+        .form-box input, .form-box select { 
+    width: 100%; 
+    padding: 12px; 
+    margin: 8px 0; 
+    border: 1px solid #ddd; 
+    border-radius: 8px; 
+    font-family: 'Cairo'; 
+    box-sizing: border-box; 
+    flex-shrink: 0; /* هذا السطر يمنع الحقول من التصغير */
+}
+
         .close-btn { background: #c0392b !important; margin-top: 10px !important; }
         
         #modal-desc { font-size: 0.9rem; color: #555; text-align: center; margin-bottom: 15px; line-height: 1.5; }
@@ -226,6 +236,7 @@
 </script>
 </body>
 </html>
+
 
 
 
