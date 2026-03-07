@@ -49,7 +49,22 @@
         .price { color: #e67e22; font-size: 1.15rem; font-weight: bold; margin: 8px 0; display: block; }
         .buy-btn { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
 
-          #order-form-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; }        .form-box { background: white; padding: 20px; border-radius: 15px; width: 100%; max-width: 450px; box-sizing: border-box; }
+          #order-form-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; }     
+        .form-box { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 15px; 
+    width: 95%; 
+    max-width: 450px; 
+    box-sizing: border-box; 
+    position: relative;
+    /* أضف السطرين أدناه لتفعيل السكرول */
+    max-height: 85vh; 
+    overflow-y: auto; 
+    display: flex;
+    flex-direction: column;
+}
+
     
 
 
@@ -93,18 +108,7 @@
     display: flex;
     flex-direction: column;
 }
-.form-box { 
-    background: white; 
-    padding: 20px; 
-    border-radius: 15px; 
-    width: 95%; 
-    max-width: 450px; 
-    box-sizing: border-box; 
-    position: relative;
-    /* أضف السطرين أدناه هنا */
-    max-height: 85vh; 
-    overflow-y: auto; 
-}
+
 
 
 
@@ -275,6 +279,7 @@
 </script>
 </body>
 </html>
+
 
 
 
