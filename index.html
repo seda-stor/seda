@@ -54,9 +54,10 @@
         #main-view { 
     width: 100%; 
     height: 100%; 
-    object-fit: contain; /* هذا يضمن ظهور الصورة كاملة دون قص مهما كان حجمها */
-    background-color: #f9f9f9; /* لون خلفية خفيف لملء الفراغات إن وجدت */
+    object-fit: contain; /* هذا هو السر لعدم تشوه الصورة */
+    border: none; 
 }
+
 
         #main-view, #youtube-view { width: 100%; height: 100%; object-fit: contain; border: none; }
         
@@ -247,6 +248,7 @@
 </script>
 </body>
 </html>
+
 
 
 
