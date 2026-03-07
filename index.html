@@ -50,24 +50,7 @@
         .buy-btn { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
 
           #order-form-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; }        .form-box { background: white; padding: 20px; border-radius: 15px; width: 100%; max-width: 450px; box-sizing: border-box; }
-    .media-container { 
-    width: 100%; 
-    /* تحديد ارتفاع ثابت ومناسب للصورة على الموبايل */
-    height: 250px; 
-    background: #000; 
-    border-radius: 10px; 
-    overflow: hidden; 
-    margin-bottom: 15px; 
-    /* منع الحاوية من التمدد بشكل مفرط */
-    flex-shrink: 0; 
-}
-
-        #main-view { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; /* هذا هو السر لعدم تشوه الصورة */
-    border: none; 
-}
+    
 
 
         #main-view, #youtube-view { width: 100%; height: 100%; object-fit: contain; border: none; }
@@ -76,19 +59,41 @@
         .thumb-img, .thumb-video-btn { width: 50px; height: 50px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
         .thumb-video-btn { background: #ff0000; color: white; font-size: 18px; }
 
-.form-box input, .form-box select { 
-    width: 100%; 
-    padding: 12px; 
-    margin: 8px 0; 
-    border: 1px solid #ddd; 
-    border-radius: 8px; 
-    font-family: 'Cairo'; 
+/* السطر 51 تقريباً: صندوق النموذج */
+.form-box { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 15px; 
+    width: 95%; /* زيادة العرض قليلاً للموبايل */
+    max-width: 450px; 
+    max-height: 90vh; /* تحديد أقصى ارتفاع بـ 90% من طول الشاشة */
+    overflow-y: auto; /* هذا هو السكرول المطلوب للنافذة كاملة */
     box-sizing: border-box; 
-    /* يمنع تصغير الحقل لضمان سهولة الكتابة */
-    flex-shrink: 0; 
-    min-height: 48px; 
-    max-height: 80vh; overflow-y: auto;
+    position: relative;
+    display: flex;
+    flex-direction: column;
 }
+
+/* السطر 53 تقريباً: حاوية الصورة والفيديو */
+.media-container { 
+    width: 100%; 
+    height: auto; /* تغيير من ثابت إلى تلقائي */
+    min-height: 250px; 
+    background: #f9f9f9; /* خلفية فاتحة بدلاً من الأسود لراحة العين */
+    border-radius: 10px; 
+    overflow: hidden; 
+    margin-bottom: 15px; 
+    flex-shrink: 0; /* منع الصورة من الانضغاط */
+}
+
+/* السطر 54 تقريباً: الصورة الأساسية */
+#main-view { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; /* يضمن ظهور كامل الصورة (مثل الخلاط) دون قص */
+    border: none; 
+}
+
 
 
 
@@ -260,6 +265,7 @@
 </script>
 </body>
 </html>
+
 
 
 
