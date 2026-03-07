@@ -51,7 +51,13 @@
 
           #order-form-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; }        .form-box { background: white; padding: 20px; border-radius: 15px; width: 100%; max-width: 450px; box-sizing: border-box; }
         
-        .media-container { width: 100%; height: auto; min-height: 200px; max-height: 280px; background: #000; border-radius: 10px; overflow: hidden; margin-bottom: 10px; }
+        #main-view { 
+    width: 100%; 
+    height: 100%; 
+    object-fit: contain; /* هذا يضمن ظهور الصورة كاملة دون قص مهما كان حجمها */
+    background-color: #f9f9f9; /* لون خلفية خفيف لملء الفراغات إن وجدت */
+}
+
         #main-view, #youtube-view { width: 100%; height: 100%; object-fit: contain; border: none; }
         
         .thumbs-grid { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
@@ -236,6 +242,7 @@
 </script>
 </body>
 </html>
+
 
 
 
