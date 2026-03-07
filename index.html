@@ -64,17 +64,20 @@
         .thumb-img, .thumb-video-btn { width: 50px; height: 50px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
         .thumb-video-btn { background: #ff0000; color: white; font-size: 18px; }
 
-        .form-box input, .form-box select { 
-    width: 100%; 
-    padding: 12px; 
-    margin: 5px 0; 
-    border: 1px solid #ddd; 
-    border-radius: 8px; 
-    font-family: 'Cairo'; 
+        .form-box { 
+    background: white; 
+    padding: 20px; 
+    border-radius: 15px; 
+    width: 95%; 
+    max-width: 450px; 
+    /* تحديد أقصى ارتفاع للنافذة البيضاء */
+    max-height: 85vh; 
+    /* تفعيل السكرول العمودي */
+    overflow-y: auto; 
     box-sizing: border-box; 
-    min-height: 45px; /* يضمن أن الحقل لن يصغر عن هذا الحجم أبداً */
-    flex-shrink: 0; 
+    position: relative;
 }
+
 
 
         .close-btn { background: #c0392b !important; margin-top: 10px !important; }
@@ -244,6 +247,7 @@
 </script>
 </body>
 </html>
+
 
 
 
