@@ -2,22 +2,21 @@
   "name": "صيدة ستور - Seda Store",
   "short_name": "صيدة ستور",
   "description": "متجرك الأول في العراق لأحدث العروض والمنتجات المميزة",
-  "start_url": "/",
+  "start_url": "/seda/",
   "display": "standalone",
   "background_color": "#f0f2f5",
   "theme_color": "#2c3e50",
   "orientation": "portrait",
   "icons": [
-  {
-    "src": "icon-192.png",
-    "sizes": "192x192",
-    "type": "image/png",
-    "purpose": "any maskable"
-  },
-  {
-    "src": "icon-512.png",
-    "sizes": "512x512",
-    "type": "image/png",
-    "purpose": "any maskable"
-  }
-]
+    {
+      "src": "icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png"
+    },
+    {
+      "src": "icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png"
+    }
+  ]
+}
