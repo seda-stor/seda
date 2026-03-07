@@ -67,13 +67,15 @@
         .form-box input, .form-box select { 
     width: 100%; 
     padding: 12px; 
-    margin: 8px 0; 
+    margin: 5px 0; 
     border: 1px solid #ddd; 
     border-radius: 8px; 
     font-family: 'Cairo'; 
     box-sizing: border-box; 
-    flex-shrink: 0; /* هذا السطر يمنع الحقول من التصغير */
+    min-height: 45px; /* يضمن أن الحقل لن يصغر عن هذا الحجم أبداً */
+    flex-shrink: 0; 
 }
+
 
         .close-btn { background: #c0392b !important; margin-top: 10px !important; }
         
@@ -242,6 +244,7 @@
 </script>
 </body>
 </html>
+
 
 
 
