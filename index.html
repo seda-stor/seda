@@ -155,12 +155,11 @@
         <h2 id="product-name-display" style="text-align: center; margin-bottom: 5px;"></h2>
         <p id="modal-desc"></p> <input type="text" id="cust-details" placeholder="الكمية أو أي تفاصيل أخرى">
         <input type="tel" id="cust-phone" placeholder="رقم الموبايل">
-        <select id="cust-city">
-        <select id="cust-city" required>
+        <select id="cust-city" required style="display: block; width: 100%;">
     <option value="" disabled selected>اختر المحافظة</option>
     <option value="بغداد">بغداد</option>
     <option value="البصرة">البصرة</option>
-    <option value="نينوى">نينوى (الموصل)</option>
+    <option value="الموصل">نينوى (الموصل)</option>
     <option value="أربيل">أربيل</option>
     <option value="النجف">النجف</option>
     <option value="كربلاء">كربلاء</option>
@@ -177,6 +176,7 @@
     <option value="السليمانية">السليمانية</option>
     <option value="دهوك">دهوك</option>
 </select>
+
 
         <button class="buy-btn" onclick="confirmOrder()">طلب عبر واتساب</button>
         <button class="buy-btn close-btn" onclick="closeForm()">إغلاق</button>
@@ -298,6 +298,7 @@
 </script>
 </body>
 </html>
+
 
 
 
