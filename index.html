@@ -385,234 +385,127 @@
 
 
 <script>
-
-// الرابط الجديد الخاص بك بعد إضافة اسم الورقة (Sheet)
-const products_api = "https://sheetdb.io/api/v1/4wqcy7ym90eg2?sheet=Sheet1";
-const categories_api = "https://sheetdb.io/api/v1/4wqcy7ym90eg2?sheet=Sheet2";
-
+    const products_api = "https://sheetdb.io/api/v1/4wqcy7ym90eg2?sheet=Sheet1";
+    const categories_api = "https://sheetdb.io/api/v1/4wqcy7ym90eg2?sheet=Sheet2";
     let allProducts = [];
-
     let selectedProduct = "";
-
     let selectedImg = "";
 
-
-
     function getYoutubeID(url) {
-
         if (!url) return null;
-
         const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-
         const match = url.match(regExp);
-
         return (match && match[2].length === 11) ? match[2] : null;
-
     }
-
-
 
     async function init() {
-
         try {
-
             const [pRes, cRes] = await Promise.all([fetch(products_api), fetch(categories_api)]);
-
             allProducts = await pRes.json();
-
             const categories = await cRes.json();
-
             
-
             const list = document.getElementById('cat-list');
-
             let html = `<div class="category-item active" onclick="filterCat('الكل', this)">الكل</div>`;
-
             html += `<div class="category-item sale-btn" onclick="filterCat('عروض', this)">🔥 عروض خاصة</div>`;
-
-            categories.forEach(c => { html += `<div class="category-item" onclick="filterCat('${c.category_name}', this)">${c.category_name}</div>`; });
-
+            
+            if(Array.isArray(categories)) {
+                categories.forEach(c => { 
+                    if(c.category_name) html += `<div class="category-item" onclick="filterCat('${c.category_name}', this)">${c.category_name}</div>`; 
+                });
+            }
             list.innerHTML = html;
-
-
-
             displayProducts(allProducts);
-
-        } catch (e) { console.error("Error loading data"); }
-
+        } catch (e) { console.error("Error loading data", e); }
     }
-
-
 
     function displayProducts(products) {
-
         const grid = document.getElementById('products-list');
-
+        if(!Array.isArray(products) || products.length === 0) {
+            grid.innerHTML = "<p style='text-align:center; width:100%; padding:20px;'>جاري تحميل المنتجات أو الشيت فارغ...</p>";
+            return;
+        }
         grid.innerHTML = products.map(item => {
-
             const hasDiscount = item.discount && item.discount !== "0" && item.discount !== "";
-
             return `
-
             <div class="product-card" onclick='openOrderForm(${JSON.stringify(item)})'>
-
                 ${hasDiscount ? `<div class="discount-badge">خصم ${item.discount}</div>` : ''}
-
                 <img src="${item.image1}">
-
                 <div class="product-info">
-
                     <h3>${item.name}</h3>
-
                     <p class="product-desc">${item.description || ''}</p> <p class="price">${item.price} د.ع</p>
-
                     <button class="buy-btn">التفاصيل والطلب</button>
-
                 </div>
-
             </div>`;
-
         }).join('');
-
     }
-
-
 
     function openOrderForm(item) {
-
         selectedProduct = item.name;
-
         selectedImg = item.image1;
-
         const mainView = document.getElementById('main-view');
-
         const ytView = document.getElementById('youtube-view');
-
-        
-
         document.getElementById('product-name-display').innerText = item.name;
-
-        document.getElementById('modal-desc').innerText = item.description || ''; // إظهار الوصف في النافذة
-
+        document.getElementById('modal-desc').innerText = item.description || '';
         mainView.src = item.image1;
-
         mainView.style.display = 'block';
-
         ytView.style.display = 'none';
-
         ytView.src = "";
-
-
-
         const thumbs = document.getElementById('thumb-list');
-
         thumbs.innerHTML = '';
-
         [item.image1, item.image2, item.image3, item.image4].forEach(img => {
-
             if(img && img !== "") {
-
                 const i = document.createElement('img'); i.src = img; i.className = 'thumb-img';
-
                 i.onclick = () => { mainView.src = img; mainView.style.display='block'; ytView.style.display='none'; ytView.src=""; };
-
                 thumbs.appendChild(i);
-
             }
-
         });
-
-
-
         const ytID = getYoutubeID(item.video);
-
         if(ytID) {
-
             const vBtn = document.createElement('div'); vBtn.className = 'thumb-video-btn'; vBtn.innerHTML = '🎥';
-
-            vBtn.onclick = () => {
-
-                mainView.style.display = 'none';
-
-                ytView.style.display = 'block';
-
-                ytView.src = `https://www.youtube.com/embed/${ytID}?autoplay=1&origin=${window.location.origin}`;
-
-            };
-
+            vBtn.onclick = () => { mainView.style.display = 'none'; ytView.style.display = 'block'; ytView.src = `https://www.youtube.com/embed/${ytID}?autoplay=1`; };
             thumbs.appendChild(vBtn);
-
         }
-
-
-
         document.getElementById('order-form-container').style.display = 'flex';
-
     }
 
-
-
-    function closeForm() { 
-
-        document.getElementById('order-form-container').style.display = 'none'; 
-
-        document.getElementById('youtube-view').src = "";
-
-    }
-
-
+    function closeForm() { document.getElementById('order-form-container').style.display = 'none'; document.getElementById('youtube-view').src = ""; }
 
     function filterCat(name, el) {
-
         document.querySelectorAll('.category-item').forEach(b => b.classList.remove('active'));
-
         el.classList.add('active');
-
         if (name === 'الكل') displayProducts(allProducts);
-
         else if (name === 'عروض') displayProducts(allProducts.filter(p => p.discount && p.discount !== "0" && p.discount !== ""));
-
         else displayProducts(allProducts.filter(p => p.category === name));
-
     }
-
-
 
     function searchProducts() {
-
         const val = document.getElementById('search-input').value.toLowerCase();
-
         displayProducts(allProducts.filter(p => p.name.toLowerCase().includes(val)));
-
     }
-
-
 
     function confirmOrder() {
-
         const details = document.getElementById('cust-details').value;
-
         const phone = document.getElementById('cust-phone').value;
-
         const city = document.getElementById('cust-city').value;
-
         if(!phone) return alert("يرجى إدخال الهاتف");
-
         const msg = `طلب جديد 🛍️\nالمنتج: ${selectedProduct}\nالتفاصيل: ${details}\nالهاتف: ${phone}\nالمحافظة: ${city}\nالرابط: ${selectedImg}`;
-
         window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
-
     }
 
-
-
+    // تشغيل المتجر
     init();
 
+    // تسجيل الـ Service Worker مرة واحدة فقط في النهاية
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('service-worker.js').catch(err => console.log('SW error:', err));
+        });
+    }
 </script>
-
 </body>
 
 </html>
+
 
 
 
