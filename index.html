@@ -209,22 +209,6 @@ const categories_api = script_url + "?sheet=sheet2";
         return (match && match[2].length === 11) ? match[2] : null;
     }
 
-    async function init() {
-        try {
-            const [pRes, cRes] = await Promise.all([fetch(products_api), fetch(categories_api)]);
-            allProducts = await pRes.json();
-            const categories = await cRes.json();
-            
-            const list = document.getElementById('cat-list');
-            let html = `<div class="category-item active" onclick="filterCat('الكل', this)">الكل</div>`;
-            html += `<div class="category-item sale-btn" onclick="filterCat('عروض', this)">🔥 عروض خاصة</div>`;
-            categories.forEach(c => { html += `<div class="category-item" onclick="filterCat('${c.category_name}', this)">${c.category_name}</div>`; });
-            list.innerHTML = html;
-
-            displayProducts(allProducts);
-        } catch (e) { console.error("Error loading data"); }
-    }
-
     function displayProducts(products) {
         const grid = document.getElementById('products-list');
         grid.innerHTML = products.map(item => {
@@ -322,6 +306,7 @@ const categories_api = script_url + "?sheet=sheet2";
         if (list && categories.length > 0) {
             let html = `<div class="category-item active" onclick="filterCat('الكل', this)">الكل</div>`;
             html += `<div class="category-item sale-btn" onclick="filterCat('عروض', this)">🔥 عروض خاصة</div>`;
+
             categories.forEach(c => { 
                 // تأكد أن اسم العمود في شيت 2 هو category_name
                 html += `<div class="category-item" onclick="filterCat('${c.category_name}', this)">${c.category_name}</div>`; 
@@ -335,9 +320,11 @@ const categories_api = script_url + "?sheet=sheet2";
         document.getElementById('products-list').innerHTML = "جاري تحديث البيانات... يرجى إعادة تحميل الصفحة";
     }
 }
-
+init();
+    
 </script>
 </body>
 </html>
+
 
 
