@@ -306,8 +306,38 @@ const categories_api = script_url + "?sheet=sheet2";
         window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
     }
 
-    init();
+    async function init() {
+    try {
+        // إضافة رقم عشوائي لمنع المتصفح من جلب نسخة قديمة مخزنة
+        const pRes = await fetch(products_api + "&nocache=" + Math.random());
+        const cRes = await fetch(categories_api + "&nocache=" + Math.random());
+        
+        allProducts = await pRes.json();
+        const categories = await cRes.json();
+
+        // فحص بسيط: هل البيانات وصلت فعلاً؟
+        console.log("المنتجات المحملة:", allProducts);
+
+        const list = document.getElementById('cat-list');
+        if (list && categories.length > 0) {
+            let html = `<div class="category-item active" onclick="filterCat('الكل', this)">الكل</div>`;
+            html += `<div class="category-item sale-btn" onclick="filterCat('عروض', this)">🔥 عروض خاصة</div>`;
+            categories.forEach(c => { 
+                // تأكد أن اسم العمود في شيت 2 هو category_name
+                html += `<div class="category-item" onclick="filterCat('${c.category_name}', this)">${c.category_name}</div>`; 
+            });
+            list.innerHTML = html;
+        }
+
+        displayProducts(allProducts);
+    } catch (e) { 
+        console.error("خطأ في التحميل:", e);
+        document.getElementById('products-list').innerHTML = "جاري تحديث البيانات... يرجى إعادة تحميل الصفحة";
+    }
+}
+
 </script>
 </body>
 </html>
+
 
