@@ -303,7 +303,7 @@ header { display: flex; justify-content: center;
         displayProducts(allProducts.filter(p => p.name.toLowerCase().includes(val)));
     }
 
-    function confirmOrder() {
+        function confirmOrder() {
         const details = document.getElementById('cust-details').value;
         const phone = document.getElementById('cust-phone').value;
         const city = document.getElementById('cust-city').value;
@@ -311,25 +311,44 @@ header { display: flex; justify-content: center;
         const msg = `طلب جديد 🛍️\nالمنتج: ${selectedProduct}\nالتفاصيل: ${details}\nالهاتف: ${phone}\nالمحافظة: ${city}\nالرابط: ${selectedImg}`;
         window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
     }
-if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function(registration) {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('Service Worker registration failed:', error);
-        });
-    });
-  }
-    init();
-        
 
+    // --- 1. منطق زر التثبيت PWA (الذي كان مفقوداً) ---
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        e.preventDefault();
+        deferredPrompt = e;
+        if (installBtn) installBtn.style.display = 'block';
+    });
+
+    if (installBtn) {
+        installBtn.addEventListener('click', async () => {
+            if (deferredPrompt) {
+                deferredPrompt.prompt();
+                const { outcome } = await deferredPrompt.userChoice;
+                deferredPrompt = null;
+                installBtn.style.display = 'none';
+            }
+        });
+    }
+
+    window.addEventListener('appinstalled', () => {
+        if (installBtn) installBtn.style.display = 'none';
+    });
+
+    // --- 2. تسجيل السيرفس وركر (بشكل صحيح) ---
+    if ('serviceWorker' in navigator) {
+        window.addEventListener('load', () => {
+            navigator.serviceWorker.register('service-worker.js');
+        });
+    }
+
+    // --- 3. تشغيل المتجر (يجب أن يكون السطر الأخير لضمان عمل الأقسام) ---
+    init();
 </script>
 </body>
 </html>
-
-
 
 
 
