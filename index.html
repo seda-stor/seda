@@ -122,20 +122,47 @@
         .close-btn { background: #c0392b !important; margin-top: 10px !important; }
         
         #modal-desc { font-size: 0.9rem; color: #555; text-align: center; margin-bottom: 15px; line-height: 1.5; }
-    </style>
-</head>
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function(registration) {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('Service Worker registration failed:', error);
-        });
-    });
-  }
+<style>
+    body { font-family: 'Cairo', sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
+    
+    /* التعديل هنا لترتيب العنوان والزر بجانب بعضهما */
+    header { 
+        background: #2c3e50; 
+        color: white; 
+        padding: 10px; 
+        position: sticky; 
+        top: 0; 
+        z-index: 100; 
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        gap: 15px; /* مسافة بين العنوان والزر */
+    }
+    header h1 { font-size: 1.3rem; margin: 0; }
+
+    /* تنسيق زر التثبيت */
+    #installBtn {
+        background: #27ae60;
+        color: white;
+        border: none;
+        padding: 5px 12px;
+        border-radius: 20px;
+        font-family: 'Cairo';
+        font-size: 0.8rem;
+        cursor: pointer;
+        display: none; /* مخفي حتى يدعم المتصفح PWA */
+        animation: pulse 2s infinite;
+    }
+
+    @keyframes pulse {
+        0% { transform: scale(1); }
+        50% { transform: scale(1.05); }
+        100% { transform: scale(1); }
+    }
+    /* بقية تنسيقاتك كما هي... */
+</style>
+
+        
     </script>
 <body>
 
@@ -306,6 +333,7 @@
 </script>
 </body>
 </html>
+
 
 
 
