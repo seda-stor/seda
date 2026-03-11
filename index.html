@@ -14,7 +14,13 @@
     <title>صيدة ستور - النسخة الكاملة</title>
    
      <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-
+    <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js');
+    });
+  }
+</script>
     <style>
         
 
@@ -135,9 +141,7 @@
 
 <header>
     <h1> صيدة ستور 🛍️ </h1>
-    <button id="installBtn" style="display:none; background:#27ae60; color:white; border:none; padding:5px 12px; border-radius:20px; font-family:'Cairo'; font-size:0.8rem; cursor:pointer; margin-right:10px;">تثبيت التطبيق</button>
 </header>
-
 
 <div class="search-container">
     <input type="text" id="search-input" class="search-input" placeholder="ابحث عن منتج..." onkeyup="searchProducts()">
@@ -297,35 +301,8 @@
         const msg = `طلب جديد 🛍️\nالمنتج: ${selectedProduct}\nالتفاصيل: ${details}\nالهاتف: ${phone}\nالمحافظة: ${city}\nالرابط: ${selectedImg}`;
         window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
     }
-    // منطق زر التثبيت
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        if (installBtn) installBtn.style.display = 'inline-block';
-    });
-
-    if (installBtn) {
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                if (outcome === 'accepted') installBtn.style.display = 'none';
-                deferredPrompt = null;
-            }
-        });
-    }
-
-    window.addEventListener('appinstalled', () => {
-        if (installBtn) installBtn.style.display = 'none';
-    });
 
     init();
 </script>
 </body>
 </html>
-
-
-
