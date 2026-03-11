@@ -1,11 +1,12 @@
 const cacheName = 'seda-store-v1';
 const assets = [
-  '/seda/',
-  '/seda/index.html',
-  '/seda/manifest.json',
-  '/seda/icon-192.png',
-  '/seda/icon-512.png'
+  './',
+  './index.html',
+  './manifest.json',
+  './icon-192.png',
+  './icon-512.png'
 ];
+
 
 // تثبيت الـ Service Worker وتخزين الملفات
 self.addEventListener('install', e => {
@@ -24,3 +25,4 @@ self.addEventListener('fetch', e => {
     })
   );
 });
+
