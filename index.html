@@ -14,13 +14,18 @@
     <title>صيدة ستور - النسخة الكاملة</title>
    
      <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    
+    <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+      navigator.serviceWorker.register('service-worker.js');
+    });
+  }
+</script>
     <style>
         
 
         body { font-family: 'Cairo', sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
-        
-
+        header { background: #2c3e50; color: white; padding: 0.5rem; text-align: center; position: sticky; top: 0; z-index: 100; }
         header h1 { font-size: 1.3rem; margin: 2px 0; }
 
         .category-wrapper { 
@@ -116,35 +121,26 @@
 
         .close-btn { background: #c0392b !important; margin-top: 10px !important; }
         
-    
-        #modal-desc { font-size: 0.9rem; color: #555;
-            text-align: center; margin-bottom: 15px; line-height: 1.5; }
-header { display: flex; justify-content: center;
-        align-items: center; gap: 15px; }
-#installBtn {
-    background: #27ae60;
-    color: white;
-    border: none;
-    padding: 5px 12px;
-    border-radius: 20px;
-    font-family: 'Cairo';
-    font-size: 0.8rem;
-    cursor: pointer;
-    display: none; /* مخفي حتى تكتشف البرمجة إمكانية التثبيت */
-    animation: pulse 2s infinite;
-}
-@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
-
+        #modal-desc { font-size: 0.9rem; color: #555; text-align: center; margin-bottom: 15px; line-height: 1.5; }
     </style>
 </head>
-    
-    
+    <script>
+  if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
+    </script>
 <body>
 
 <header>
     <h1> صيدة ستور 🛍️ </h1>
-    <button id="installBtn">تثبيت التطبيق</button>
-
 </header>
 
 <div class="search-container">
@@ -297,7 +293,7 @@ header { display: flex; justify-content: center;
         displayProducts(allProducts.filter(p => p.name.toLowerCase().includes(val)));
     }
 
-        function confirmOrder() {
+    function confirmOrder() {
         const details = document.getElementById('cust-details').value;
         const phone = document.getElementById('cust-phone').value;
         const city = document.getElementById('cust-city').value;
@@ -306,44 +302,7 @@ header { display: flex; justify-content: center;
         window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
     }
 
-    // --- 1. منطق زر التثبيت PWA (الذي كان مفقوداً) ---
-    let deferredPrompt;
-    const installBtn = document.getElementById('installBtn');
-
-    window.addEventListener('beforeinstallprompt', (e) => {
-        e.preventDefault();
-        deferredPrompt = e;
-        if (installBtn) installBtn.style.display = 'block';
-    });
-
-    if (installBtn) {
-        installBtn.addEventListener('click', async () => {
-            if (deferredPrompt) {
-                deferredPrompt.prompt();
-                const { outcome } = await deferredPrompt.userChoice;
-                deferredPrompt = null;
-                installBtn.style.display = 'none';
-            }
-        });
-    }
-
-    window.addEventListener('appinstalled', () => {
-        if (installBtn) installBtn.style.display = 'none';
-    });
-
-    // --- 2. تسجيل السيرفس وركر (بشكل صحيح) ---
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('service-worker.js');
-        });
-    }
-
-    // --- 3. تشغيل المتجر (يجب أن يكون السطر الأخير لضمان عمل الأقسام) ---
     init();
 </script>
 </body>
 </html>
-
-
-
-
