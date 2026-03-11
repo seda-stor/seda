@@ -192,8 +192,12 @@
 </div>
 
 <script>
-    const products_api = "https://sheetdb.io/api/v1/wlqhpaeshgyev?sheet=Sheet1";
-    const categories_api = "https://sheetdb.io/api/v1/wlqhpaeshgyev?sheet=Sheet2";
+    // هذا هو الرابط الذي أرسلته لي
+const script_url = "https://script.google.com/macros/s/AKfycbyKjCliE9Yb379EN-tNhYUuZrlyBuUNnRof7XnVz64DuPRG3R4UXQD_ZxB0v2XA9hm4/exec"; 
+
+const products_api = script_url + "?sheet=sheet1";
+const categories_api = script_url + "?sheet=sheet2";
+
     let allProducts = [];
     let selectedProduct = "";
     let selectedImg = "";
@@ -306,3 +310,4 @@
 </script>
 </body>
 </html>
+
