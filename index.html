@@ -121,7 +121,23 @@
 
         .close-btn { background: #c0392b !important; margin-top: 10px !important; }
         
+    
         #modal-desc { font-size: 0.9rem; color: #555; text-align: center; margin-bottom: 15px; line-height: 1.5; }
+header { display: flex; justify-content: center; align-items: center; gap: 15px; }
+#installBtn {
+    background: #27ae60;
+    color: white;
+    border: none;
+    padding: 5px 12px;
+    border-radius: 20px;
+    font-family: 'Cairo';
+    font-size: 0.8rem;
+    cursor: pointer;
+    display: none; /* مخفي حتى تكتشف البرمجة إمكانية التثبيت */
+    animation: pulse 2s infinite;
+}
+@keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.05); } 100% { transform: scale(1); } }
+
     </style>
 </head>
     <script>
@@ -141,6 +157,8 @@
 
 <header>
     <h1> صيدة ستور 🛍️ </h1>
+    <button id="installBtn">تثبيت التطبيق</button>
+
 </header>
 
 <div class="search-container">
@@ -302,15 +320,8 @@
         window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
     }
 
-    // 1. تسجيل السيرفس وركر
-    if ('serviceWorker' in navigator) {
-        window.addEventListener('load', () => {
-            navigator.serviceWorker.register('service-worker.js');
-        });
-    }
-
-    // 2. منطق زر التثبيت PWA
-    let deferredPrompt;
+    init();
+        let deferredPrompt;
     const installBtn = document.getElementById('installBtn');
 
     window.addEventListener('beforeinstallprompt', (e) => {
@@ -327,8 +338,10 @@
         });
     });
 
-    init();
+    window.addEventListener('appinstalled', () => {
+        installBtn.style.display = 'none';
+    });
+
 </script>
 </body>
 </html>
-
