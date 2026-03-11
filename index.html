@@ -311,9 +311,6 @@ header { display: flex; justify-content: center;
         const msg = `طلب جديد 🛍️\nالمنتج: ${selectedProduct}\nالتفاصيل: ${details}\nالهاتف: ${phone}\nالمحافظة: ${city}\nالرابط: ${selectedImg}`;
         window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
     }
-
-    init();
-        
 if ('serviceWorker' in navigator) {
     window.addEventListener('load', function() {
       navigator.serviceWorker.register('service-worker.js')
@@ -325,9 +322,13 @@ if ('serviceWorker' in navigator) {
         });
     });
   }
+    init();
+        
+
 </script>
 </body>
 </html>
+
 
 
 
