@@ -296,7 +296,8 @@ const categories_api = "products.json"; // سنستخدم نفس الملف حا
 const cRes = await fetch(categories_api);
 
         allProducts = await pRes.json();
-        const categories = await cRes.json();
+        const categories = allProducts; // لأننا نستخدم نفس الملف
+
 
         // فحص بسيط: هل البيانات وصلت فعلاً؟
         console.log("المنتجات المحملة:", allProducts);
@@ -325,6 +326,7 @@ init();
 </script>
 </body>
 </html>
+
 
 
 
