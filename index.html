@@ -1,153 +1,91 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-    <link rel="manifest" href="manifest.json">
-    <meta name="description" content="صيدة ستور - متجرك الأول في العراق لأحدث العروض والمنتجات المميزة. تسوق الآن واستمتع بخدمة التوصيل السريع لكافة المحافظات وأفضل الأسعار الحصرية.">
-
-<meta name="keywords" content="صيدة ستور, تسوق اونلاين العراق, متجر الكتروني بغداد, عروض خصم, توصيل محافظات">
-
-<meta property="og:title" content="صيدة ستور - Seda Store">
-<meta property="og:description" content="تسوق أفضل المنتجات بأقل الأسعار في العراق.">
-<meta property="og:image" content="رابط_لوجو_متجرك_هنا">
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>صيدة ستور - النسخة الكاملة</title>
-   
-     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
-      navigator.serviceWorker.register('service-worker.js');
-    });
-  }
-</script>
+    <title>صيدة ستور - الصفحة الرئيسية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        
-
+        /* التنسيقات العامة */
         body { font-family: 'Cairo', sans-serif; background-color: #f0f2f5; margin: 0; padding: 0; }
-        header { background: #2c3e50; color: white; padding: 0.5rem; text-align: center; position: sticky; top: 0; z-index: 100; }
-        header h1 { font-size: 1.3rem; margin: 2px 0; }
-
-        .category-wrapper { 
-            display: flex; justify-content: flex-start; gap: 10px; padding: 15px; 
-            overflow-x: auto; background: white; white-space: nowrap; 
-            -webkit-overflow-scrolling: touch; scrollbar-width: none; border-bottom: 1px solid #ddd;
+       
+        header {
+            background: #2c3e50;
+            color: white;
+            padding: 0.5rem;
+            text-align: center;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-        .category-wrapper::-webkit-scrollbar { display: none; }
-        .category-item { padding: 8px 20px; background: #eee; border-radius: 20px; cursor: pointer; flex-shrink: 0; font-size: 0.9rem; transition: 0.3s; }
-        .category-item.active { background: #27ae60; color: white; }
-        .category-item.sale-btn { border: 1px solid #e74c3c; color: #e74c3c; font-weight: bold; }
-        .category-item.sale-btn.active { background: #e74c3c; color: white; }
+        header h1 { font-size: 1.3rem; margin: 2px 0; }
+        header p { font-size: 0.75rem; margin: 0; opacity: 0.9; }
 
         .container { max-width: 1000px; margin: 10px auto; padding: 10px; }
+
         .search-container { max-width: 600px; margin: 15px auto; padding: 0 15px; display: flex; gap: 8px; }
-        .search-input { flex: 1; padding: 10px 20px; border: 2px solid #ddd; border-radius: 30px; font-family: 'Cairo'; outline: none; box-sizing: border-box; }
+        .search-input { flex: 1; padding: 10px 20px; border: 2px solid #ddd; border-radius: 30px; font-family: 'Cairo'; font-size: 0.95rem; outline: none; transition: 0.3s; }
+        .search-input:focus { border-color: #2c3e50; }
+        .search-btn { background: #2c3e50; color: white; border: none; padding: 0 20px; border-radius: 30px; cursor: pointer; font-weight: bold; transition: 0.3s; }
+        .search-btn:hover { background: #1a252f; }
+
+        .category-wrapper { display: flex; justify-content: center; gap: 10px; padding: 12px; overflow-x: auto; background: white; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+        .category-item { padding: 6px 18px; background: #eee; border-radius: 20px; cursor: pointer; white-space: nowrap; transition: 0.3s; font-size: 0.9rem; }
+        .category-item.active { background: #27ae60; color: white; }
+        .category-item.sale-btn { border: 1px solid #e74c3c; color: #e74c3c; }
+        .category-item.sale-btn.active { background: #e74c3c; color: white; }
 
         .products-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 20px; margin-top: 15px; }
-        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); cursor: pointer; position: relative; }
-        .product-card img { width: 100%; height: 260px; object-fit: contain; padding: 10px; box-sizing: border-box; }
-        
-        .discount-badge { position: absolute; top: 10px; right: 10px; background: #e74c3c; color: white; padding: 4px 10px; border-radius: 5px; font-size: 0.8rem; font-weight: bold; z-index: 10; }
+        .product-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 8px rgba(0,0,0,0.1); transition: 0.3s; cursor: pointer; display: flex; flex-direction: column; position: relative; }
+        .product-card:hover { transform: translateY(-5px); }
+       
+        .discount-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #e74c3c;
+            color: white;
+            padding: 4px 10px;
+            border-radius: 5px;
+            font-weight: bold;
+            font-size: 0.8rem;
+            z-index: 5;
+        }
+
+        .product-card img { width: 100%; height: 260px; object-fit: contain; background: #fff; padding: 10px; box-sizing: border-box; }
 
         .product-info { padding: 15px; text-align: right; border-top: 1px solid #f1f1f1; }
         .product-info h3 { margin: 0; font-size: 1.1rem; color: #2c3e50; }
         /* تنسيق الوصف الجديد */
-        .product-desc { font-size: 0.85rem; color: #7f8c8d; margin: 5px 0; line-height: 1.4; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; }
-        
+        .product-info .desc { color: #7f8c8d; display: block; margin-bottom: 8px; font-size: 0.85rem; line-height: 1.4; }
         .price { color: #e67e22; font-size: 1.15rem; font-weight: bold; margin: 8px 0; display: block; }
-        .buy-btn { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-weight: bold; }
+        .buy-btn { background: #27ae60; color: white; border: none; padding: 10px 20px; border-radius: 6px; cursor: pointer; width: 100%; font-size: 1rem; font-weight: bold; }
 
-          #order-form-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.9); z-index: 1000; align-items: center; justify-content: center; padding: 10px; box-sizing: border-box; }     
-        .form-box { 
-    background: white; 
-    padding: 15px; 
-    border-radius: 15px; 
-    width: 100%; 
-    max-width: 100%; 
-    box-sizing: border-box; 
-    position: relative;
-    /* أضف السطرين أدناه لتفعيل السكرول */
-    max-height: 90vh; 
-    overflow-y: auto; 
-    display: flex;
-    flex-direction: column;
-}
-
-    
-
-
-        #main-view, #youtube-view { width: 100%; height: 100%; object-fit: contain; border: none; }
-        
-        .thumbs-grid { display: flex; justify-content: center; gap: 8px; margin-bottom: 15px; flex-wrap: wrap; }
-        .thumb-img, .thumb-video-btn { width: 50px; height: 50px; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; box-sizing: border-box; display: flex; align-items: center; justify-content: center; }
-        .thumb-video-btn { background: #ff0000; color: white; font-size: 18px; }
-
-/* السطر 51 تقريباً: صندوق النموذج */
-.media-container { 
-    width: 100%; 
-    /* تحديد ارتفاع ثابت ومناسب للصورة على الموبايل */
-    height: auto; 
-    background: #000; 
-    border-radius: 10px; 
-    overflow: hidden; 
-    margin-bottom: 15px; 
-    /* منع الحاوية من التمدد بشكل مفرط */
-    flex-shrink: 0; 
-}
-
-        #main-view { 
-    width: 100%; 
-    height: 100%; 
-    object-fit: contain; /* هذا هو السر لعدم تشوه الصورة */
-    border: none; 
-}
-.form-box input, .form-box select { 
-    width: 100%; 
-    padding: 12px; 
-    margin: 8px 0; 
-    border: 1px solid #ddd; 
-    border-radius: 8px; 
-    font-family: 'Cairo'; 
-    box-sizing: border-box; 
-    /* يمنع تصغير الحقل لضمان سهولة الكتابة */
-    flex-shrink: 0; 
-    min-height: 50px; 
-    
-    
-}
-
-
-
-
-        .close-btn { background: #c0392b !important; margin-top: 10px !important; }
-        
-        #modal-desc { font-size: 0.9rem; color: #555; text-align: center; margin-bottom: 15px; line-height: 1.5; }
+        #order-form-container { display: none; position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.8); z-index: 1000; align-items: center; justify-content: center; overflow-y: auto; padding: 10px; }
+        .form-box { background: white; padding: 20px; border-radius: 15px; width: 100%; max-width: 480px; box-sizing: border-box; }
+        #main-view { width: 100%; height: 320px; object-fit: contain; background: #fff; border-radius: 10px; border: 1px solid #eee; }
+        .thumbs-grid { display: flex; justify-content: center; gap: 8px; margin-top: 10px; flex-wrap: wrap; }
+        .thumb-img { width: 60px; height: 60px; object-fit: contain; border: 2px solid #ddd; border-radius: 8px; cursor: pointer; background: #fff; }
+        input, select { width: 100%; padding: 12px; margin: 8px 0; border: 1px solid #ddd; border-radius: 8px; box-sizing: border-box; font-family: 'Cairo'; }
+        .close-btn { background: #c0392b; margin-top: 8px; }
     </style>
 </head>
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function(registration) {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('Service Worker registration failed:', error);
-        });
-    });
-  }
-    </script>
 <body>
 
 <header>
-    <h1> صيدة ستور 🛍️ </h1>
+    <h1> صيدة ستور </h1>
+    <p>تسوق بأمان - التوصيل لكل المحافظات</p>
 </header>
 
 <div class="search-container">
     <input type="text" id="search-input" class="search-input" placeholder="ابحث عن منتج..." onkeyup="searchProducts()">
+    <button class="search-btn" onclick="searchProducts()">بحث</button>
 </div>
 
-<div class="category-wrapper" id="cat-list"></div>
+<div class="category-wrapper" id="cat-list">
+    <div class="category-item active">جاري التحميل...</div>
+</div>
 
 <div class="container">
     <div class="products-grid" id="products-list"></div>
@@ -155,39 +93,18 @@
 
 <div id="order-form-container">
     <div class="form-box">
-        <div class="media-container">
-            <img id="main-view" src="">
-            <iframe id="youtube-view" style="display:none;" src="" allowfullscreen></iframe>
+        <div class="gallery-container">
+            <img id="main-view" src="" alt="صورة المنتج">
+            <div class="thumbs-grid" id="thumb-list"></div>
         </div>
-        <div class="thumbs-grid" id="thumb-list"></div>
-        <h2 id="product-name-display" style="text-align: center; margin-bottom: 5px;"></h2>
-        <p id="modal-desc"></p> <input type="text" id="cust-details" placeholder="الكمية أو أي تفاصيل أخرى">
-        <input type="tel" id="cust-phone" placeholder="رقم الموبايل">
-        <select id="cust-city" required style="display: block; width: 100%;">
-    <option value="" disabled selected>اختر المحافظة</option>
-    <option value="بغداد">بغداد</option>
-    <option value="البصرة">البصرة</option>
-    <option value="الموصل">نينوى (الموصل)</option>
-    <option value="أربيل">أربيل</option>
-    <option value="النجف">النجف</option>
-    <option value="كربلاء">كربلاء</option>
-    <option value="بابل">بابل</option>
-    <option value="ذي قار">ذي قار</option>
-    <option value="الأنبار">الأنبار</option>
-    <option value="كركوك">كركوك</option>
-    <option value="صلاح الدين">صلاح الدين</option>
-    <option value="ديالى">ديالى</option>
-    <option value="واسط">واسط</option>
-    <option value="ميسان">ميسان</option>
-    <option value="القادسية">القادسية</option>
-    <option value="المثنى">المثنى</option>
-    <option value="السليمانية">السليمانية</option>
-    <option value="دهوك">دهوك</option>
-</select>
-
-
-        <button class="buy-btn" onclick="confirmOrder()">طلب عبر واتساب</button>
-        <button class="buy-btn close-btn" onclick="closeForm()">إغلاق</button>
+        <h2 id="product-name-display" style="margin: 15px 0 5px 0; font-size: 1.25rem; text-align: center;">تأكيد الطلب</h2>
+        <input type="text" id="cust-name" placeholder="عدد القطع او تفاصيل اخرى">
+        <input type="tel" id="cust-phone" placeholder="رقم الهاتف">
+        <select id="cust-city">
+            <option value="بغداد">بغداد</option><option value="البصرة">البصرة</option><option value="الموصل">الموصل</option><option value="أربيل">أربيل</option><option value="النجف">النجف</option><option value="كربلاء">كربلاء</option><option value="واسط">واسط</option><option value="القادسية">القادسية</option><option value="ديالى">ديالى</option><option value="المثنى">المثنى</option><option value="الانبار">الانبار</option><option value="صلاح الدين">صلاح الدين</option><option value="دهوك">دهوك</option><option value="السليمانية">السليمانية</option><option value="ميسان">ميسان</option><option value="ذي قار">ذي قار</option><option value="كركوك">كركوك</option><option value="بابل">بابل</option>
+        </select>
+        <button class="buy-btn" onclick="confirmOrder()">إرسال الطلب عبر واتساب</button>
+        <button class="buy-btn close-btn" onclick="closeForm()">إلغاء</button>
     </div>
 </div>
 
@@ -195,93 +112,64 @@
     const products_api = "https://sheetdb.io/api/v1/wlqhpaeshgyev?sheet=Sheet1";
     const categories_api = "https://sheetdb.io/api/v1/wlqhpaeshgyev?sheet=Sheet2";
     let allProducts = [];
+   
     let selectedProduct = "";
     let selectedImg = "";
+    let selectedDiscount = "";
 
-    function getYoutubeID(url) {
-        if (!url) return null;
-        const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
-        const match = url.match(regExp);
-        return (match && match[2].length === 11) ? match[2] : null;
+    async function loadCategories() {
+        try {
+            const res = await fetch(categories_api);
+            const data = await res.json();
+            const list = document.getElementById('cat-list');
+            let categoriesHTML = `<div class="category-item active" onclick="filterCat('الكل', this)">الكل</div>`;
+            categoriesHTML += `<div class="category-item sale-btn" onclick="filterCat('عروض', this)">🔥 عروض خاصة</div>`;
+            data.forEach(cat => {
+                categoriesHTML += `<div class="category-item" onclick="filterCat('${cat.category_name}', this)">${cat.category_name}</div>`;
+            });
+            list.innerHTML = categoriesHTML;
+        } catch (e) { console.error("خطأ بالأقسام"); }
     }
 
-    async function init() {
+    async function loadProducts() {
         try {
-            const [pRes, cRes] = await Promise.all([fetch(products_api), fetch(categories_api)]);
-            allProducts = await pRes.json();
-            const categories = await cRes.json();
-            
-            const list = document.getElementById('cat-list');
-            let html = `<div class="category-item active" onclick="filterCat('الكل', this)">الكل</div>`;
-            html += `<div class="category-item sale-btn" onclick="filterCat('عروض', this)">🔥 عروض خاصة</div>`;
-            categories.forEach(c => { html += `<div class="category-item" onclick="filterCat('${c.category_name}', this)">${c.category_name}</div>`; });
-            list.innerHTML = html;
-
+            const res = await fetch(products_api);
+            allProducts = await res.json();
             displayProducts(allProducts);
-        } catch (e) { console.error("Error loading data"); }
+        } catch (e) { console.error("خطأ بالمنتجات"); }
     }
 
     function displayProducts(products) {
         const grid = document.getElementById('products-list');
-        grid.innerHTML = products.map(item => {
-            const hasDiscount = item.discount && item.discount !== "0" && item.discount !== "";
-            return `
-            <div class="product-card" onclick='openOrderForm(${JSON.stringify(item)})'>
-                ${hasDiscount ? `<div class="discount-badge">خصم ${item.discount}</div>` : ''}
-                <img src="${item.image1}">
-                <div class="product-info">
-                    <h3>${item.name}</h3>
-                    <p class="product-desc">${item.description || ''}</p> <p class="price">${item.price} د.ع</p>
-                    <button class="buy-btn">التفاصيل والطلب</button>
-                </div>
-            </div>`;
-        }).join('');
-    }
-
-    function openOrderForm(item) {
-        selectedProduct = item.name;
-        selectedImg = item.image1;
-        const mainView = document.getElementById('main-view');
-        const ytView = document.getElementById('youtube-view');
-        
-        document.getElementById('product-name-display').innerText = item.name;
-        document.getElementById('modal-desc').innerText = item.description || ''; // إظهار الوصف في النافذة
-        mainView.src = item.image1;
-        mainView.style.display = 'block';
-        ytView.style.display = 'none';
-        ytView.src = "";
-
-        const thumbs = document.getElementById('thumb-list');
-        thumbs.innerHTML = '';
-        [item.image1, item.image2, item.image3, item.image4].forEach(img => {
-            if(img && img !== "") {
-                const i = document.createElement('img'); i.src = img; i.className = 'thumb-img';
-                i.onclick = () => { mainView.src = img; mainView.style.display='block'; ytView.style.display='none'; ytView.src=""; };
-                thumbs.appendChild(i);
-            }
-        });
-
-        const ytID = getYoutubeID(item.video);
-        if(ytID) {
-            const vBtn = document.createElement('div'); vBtn.className = 'thumb-video-btn'; vBtn.innerHTML = '🎥';
-            vBtn.onclick = () => {
-                mainView.style.display = 'none';
-                ytView.style.display = 'block';
-                ytView.src = `https://www.youtube.com/embed/${ytID}?autoplay=1&origin=${window.location.origin}`;
-            };
-            thumbs.appendChild(vBtn);
+        grid.innerHTML = '';
+        if(products.length === 0) {
+            grid.innerHTML = '<p style="text-align:center; width:100%; grid-column: 1/-1;">لا توجد منتجات حالياً.</p>';
+            return;
         }
+        products.forEach(item => {
+            let discountTag = (item.discount && item.discount !== "0" && item.discount !== "")
+                ? `<div class="discount-badge">خصم ${item.discount}</div>` : '';
 
-        document.getElementById('order-form-container').style.display = 'flex';
-    }
+            // جلب الوصف من عمود description أو وضع نص بديل إذا كان فارغاً
+            let productDesc = item.description || "لا يوجد وصف متوفر";
 
-    function closeForm() { 
-        document.getElementById('order-form-container').style.display = 'none'; 
-        document.getElementById('youtube-view').src = "";
+            grid.innerHTML += `
+                <div class="product-card" onclick="openOrderForm('${item.name}', '${item.image1}', '${item.image2}', '${item.image3}', '${item.image4}', '${item.discount}')">
+                    ${discountTag}
+                    <img src="${item.image1}" alt="${item.name}">
+                    <div class="product-info">
+                        <h3>${item.name}</h3>
+                        <span class="desc">${productDesc}</span>
+                        <p class="price">${item.price} د.ع</p>
+                        <button class="buy-btn">التفاصيل والطلب</button>
+                    </div>
+                </div>`;
+        });
     }
 
     function filterCat(name, el) {
-        document.querySelectorAll('.category-item').forEach(b => b.classList.remove('active'));
+        document.getElementById('search-input').value = '';
+        document.querySelectorAll('.category-item').forEach(btn => btn.classList.remove('active'));
         el.classList.add('active');
         if (name === 'الكل') displayProducts(allProducts);
         else if (name === 'عروض') displayProducts(allProducts.filter(p => p.discount && p.discount !== "0" && p.discount !== ""));
@@ -289,20 +177,57 @@
     }
 
     function searchProducts() {
-        const val = document.getElementById('search-input').value.toLowerCase();
-        displayProducts(allProducts.filter(p => p.name.toLowerCase().includes(val)));
+        const term = document.getElementById('search-input').value.toLowerCase();
+        const filtered = allProducts.filter(p => p.name.toLowerCase().includes(term) || p.description.toLowerCase().includes(term));
+        displayProducts(filtered);
+        document.querySelectorAll('.category-item').forEach(btn => btn.classList.remove('active'));
     }
+
+    function openOrderForm(name, img1, img2, img3, img4, discount) {
+        selectedProduct = name;
+        selectedImg = img1;
+        selectedDiscount = (discount && discount !== "0" && discount !== "undefined") ? discount : "لا يوجد";
+
+        document.getElementById('product-name-display').innerText = name;
+        const mainView = document.getElementById('main-view');
+        mainView.src = img1;
+        const thumbList = document.getElementById('thumb-list');
+        thumbList.innerHTML = '';
+        const images = [img1, img2, img3, img4];
+        images.forEach(imgUrl => {
+            if(imgUrl && imgUrl !== "" && imgUrl !== "undefined") {
+                const thumb = document.createElement('img');
+                thumb.src = imgUrl;
+                thumb.className = 'thumb-img';
+                thumb.onclick = (e) => { e.stopPropagation(); mainView.src = imgUrl; };
+                thumbList.appendChild(thumb);
+            }
+        });
+        document.getElementById('order-form-container').style.display = 'flex';
+    }
+
+    function closeForm() { document.getElementById('order-form-container').style.display = 'none'; }
 
     function confirmOrder() {
-        const details = document.getElementById('cust-details').value;
+        const name = document.getElementById('cust-name').value;
         const phone = document.getElementById('cust-phone').value;
         const city = document.getElementById('cust-city').value;
-        if(!phone) return alert("يرجى إدخال الهاتف");
-        const msg = `طلب جديد 🛍️\nالمنتج: ${selectedProduct}\nالتفاصيل: ${details}\nالهاتف: ${phone}\nالمحافظة: ${city}\nالرابط: ${selectedImg}`;
+        if (!name || !phone) { alert("يرجى إكمال البيانات عيوني"); return; }
+       
+        const msg = `طلب جديد من المتجر 🛍️\n\n` +
+                    `📦 المنتج: ${selectedProduct}\n` +
+                    `🔥 الخصم: ${selectedDiscount}\n` +
+                    `🖼️ رابط الصورة: ${selectedImg}\n\n` +
+                    `👤 الاسم: ${name}\n` +
+                    `📞 الهاتف: ${phone}\n` +
+                    `📍 المحافظة: ${city}`;
+
         window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
+        closeForm();
     }
 
-    init();
+    loadCategories();
+    loadProducts();
 </script>
 </body>
 </html>
