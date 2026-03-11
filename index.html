@@ -307,6 +307,7 @@ const categories_api = script_url + "?sheet=sheet2";
             let html = `<div class="category-item active" onclick="filterCat('الكل', this)">الكل</div>`;
             html += `<div class="category-item sale-btn" onclick="filterCat('عروض', this)">🔥 عروض خاصة</div>`;
 
+
             categories.forEach(c => { 
                 // تأكد أن اسم العمود في شيت 2 هو category_name
                 html += `<div class="category-item" onclick="filterCat('${c.category_name}', this)">${c.category_name}</div>`; 
@@ -325,6 +326,7 @@ init();
 </script>
 </body>
 </html>
+
 
 
 
