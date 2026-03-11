@@ -123,8 +123,10 @@
         .close-btn { background: #c0392b !important; margin-top: 10px !important; }
         
     
-        #modal-desc { font-size: 0.9rem; color: #555; text-align: center; margin-bottom: 15px; line-height: 1.5; }
-header { display: flex; justify-content: center; align-items: center; gap: 15px; }
+        #modal-desc { font-size: 0.9rem; color: #555;
+            text-align: center; margin-bottom: 15px; line-height: 1.5; }
+header { display: flex; justify-content: center;
+        align-items: center; gap: 15px; }
 #installBtn {
     background: #27ae60;
     color: white;
@@ -141,19 +143,8 @@ header { display: flex; justify-content: center; align-items: center; gap: 15px;
 
     </style>
 </head>
-    <script>
-  if ('serviceWorker' in navigator) {
-    window.addEventListener('load', function() {
-      navigator.serviceWorker.register('service-worker.js')
-        .then(function(registration) {
-          console.log('Service Worker registered with scope:', registration.scope);
-        })
-        .catch(function(error) {
-          console.log('Service Worker registration failed:', error);
-        });
-    });
-  }
-    </script>
+    
+    
 <body>
 
 <header>
@@ -323,10 +314,21 @@ header { display: flex; justify-content: center; align-items: center; gap: 15px;
 
     init();
         
-
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', function() {
+      navigator.serviceWorker.register('service-worker.js')
+        .then(function(registration) {
+          console.log('Service Worker registered with scope:', registration.scope);
+        })
+        .catch(function(error) {
+          console.log('Service Worker registration failed:', error);
+        });
+    });
+  }
 </script>
 </body>
 </html>
+
 
 
 
