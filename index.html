@@ -333,8 +333,42 @@
 
     init();
 </script>
+    <script>
+    let deferredPrompt;
+    const installBtn = document.getElementById('installBtn');
+
+    window.addEventListener('beforeinstallprompt', (e) => {
+        // منع المتصفح من إظهار النافذة التلقائية
+        e.preventDefault();
+        // حفظ الحدث
+        deferredPrompt = e;
+        // إظهار الزر الآن بجانب العنوان
+        installBtn.style.display = 'block';
+
+        installBtn.addEventListener('click', () => {
+            // إخفاء الزر بعد النقر
+            installBtn.style.display = 'none';
+            // إظهار نافذة التثبيت
+            deferredPrompt.prompt();
+            // الرد على اختيار المستخدم
+            deferredPrompt.userChoice.then((choiceResult) => {
+                if (choiceResult.outcome === 'accepted') {
+                    console.log('User accepted the install prompt');
+                }
+                deferredPrompt = null;
+            });
+        });
+    });
+
+    // إخفاء الزر إذا تم تثبيت التطبيق بالفعل
+    window.addEventListener('appinstalled', () => {
+        installBtn.style.display = 'none';
+    });
+</script>
+
 </body>
 </html>
+
 
 
 
