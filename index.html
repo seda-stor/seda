@@ -193,10 +193,9 @@
 
 <script>
     // هذا هو الرابط الذي أرسلته لي
-const script_url = "https://script.google.com/macros/s/AKfycbyKjCliE9Yb379EN-tNhYUuZrlyBuUNnRof7XnVz64DuPRG3R4UXQD_ZxB0v2XA9hm4/exec"; 
+const products_api = "products.json";
+const categories_api = "products.json"; // سنستخدم نفس الملف حالياً للأقسام
 
-const products_api = script_url + "?sheet=sheet1";
-const categories_api = script_url + "?sheet=sheet2";
 
     let allProducts = [];
     let selectedProduct = "";
@@ -326,6 +325,7 @@ init();
 </script>
 </body>
 </html>
+
 
 
 
