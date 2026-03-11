@@ -73,10 +73,12 @@
 </head>
 <body>
 
-<header>
+<header style="display: flex; align-items: center; justify-content: center; gap: 15px;">
     <h1> صيدة ستور 🛍️ </h1>
+    <button id="install-btn" style="display: none; background: #27ae60; color: white; border: none; padding: 5px 12px; border-radius: 20px; font-family: 'Cairo'; cursor: pointer; font-size: 0.8rem;">
+        تثبيت التطبيق 📲
+    </button>
 </header>
-
 <div class="search-container">
     <input type="text" id="search-input" class="search-input" placeholder="ابحث عن منتج..." onkeyup="searchProducts()">
 </div>
@@ -233,9 +235,41 @@
         const msg = `طلب جديد 🛍️\nالمنتج: ${selectedProduct}\nالتفاصيل: ${details}\nالهاتف: ${phone}\nالمحافظة: ${city}\nالرابط: ${selectedImg}`;
         window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
     }
+let deferredPrompt;
+const installBtn = document.getElementById('install-btn');
 
+window.addEventListener('beforeinstallprompt', (e) => {
+    // منع المتصفح من إظهار النافذة التلقائية
+    e.preventDefault();
+    // حفظ الحدث لاستخدامه لاحقاً
+    deferredPrompt = e;
+    // إظهار زر التثبيت الخاص بنا
+    installBtn.style.display = 'block';
+});
+
+installBtn.addEventListener('click', async () => {
+    if (deferredPrompt) {
+        // إظهار نافذة التثبيت
+        deferredPrompt.prompt();
+        // انتظار رد الفعل من المستخدم
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        // مسح الحدث (لا يمكن استخدامه مرتين)
+        deferredPrompt = null;
+        // إخفاء الزر بعد الضغط
+        installBtn.style.display = 'none';
+    }
+});
+
+// إخفاء الزر إذا تم تثبيت التطبيق بالفعل
+window.addEventListener('appinstalled', () => {
+    installBtn.style.display = 'none';
+    deferredPrompt = null;
+    console.log('PWA was installed');
+});
     init();
 </script>
 </body>
 
 </html>
+
