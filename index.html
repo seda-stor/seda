@@ -292,9 +292,9 @@ const categories_api = "products.json"; // سنستخدم نفس الملف حا
     async function init() {
     try {
         // إضافة رقم عشوائي لمنع المتصفح من جلب نسخة قديمة مخزنة
-        const pRes = await fetch(products_api + "&nocache=" + Math.random());
-        const cRes = await fetch(categories_api + "&nocache=" + Math.random());
-        
+        const pRes = await fetch(products_api);
+const cRes = await fetch(categories_api);
+
         allProducts = await pRes.json();
         const categories = await cRes.json();
 
@@ -325,6 +325,7 @@ init();
 </script>
 </body>
 </html>
+
 
 
 
