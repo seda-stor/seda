@@ -142,8 +142,12 @@
 </div>
 
 <script>
-   const products_api = "https://sheetdb.io/api/v1/4wqcy7ym90eg2?sheet=Sheet1";
-    const categories_api = "https://sheetdb.io/api/v1/4wqcy7ym90eg2?sheet=Sheet2";
+  // الرابط الجديد الذي قمت بإنشائه
+const base_api_url = "https://script.google.com/macros/s/AKfycbyPnNS-J9cI5SapFmy-lwdQZwL8idTtTIeT4bC10paKw8Dq5kJRgs_egNqTuRMNPPm57w/exec"; 
+
+// تعديل الروابط القديمة لتستخدم الرابط الجديد مع تحديد اسم الورقة
+const products_api = `${base_api_url}?sheet=Sheet1`;
+const categories_api = `${base_api_url}?sheet=Sheet2`;
     let allProducts = [];
     let selectedProduct = "";
     let selectedImg = "";
