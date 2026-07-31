@@ -113,10 +113,8 @@
         </div>
         <div class="thumbs-grid" id="thumb-list"></div>
         <h2 id="product-name-display" style="text-align: center; margin-bottom: 5px;"></h2>
-        <p id="modal-desc"></p>  
-        <input type="text" id="cust-details" placeholder="الكمية (مطلوب)" required>
-<input type="text" id="cust-discount" placeholder="كود الخصم (اختياري)">
-
+        <p id="modal-desc"></p> <input type="text" id="cust-details" placeholder="الكمية او كود خصم أو أي تفاصيل أخرى">
+        <input type="tel" id="cust-phone" placeholder="رقم الموبايل">
         <select id="cust-city" required style="display: block; width: 100%;">
     <option value="" disabled selected>اختر المحافظة</option>
     <option value="بغداد">بغداد</option>
@@ -249,28 +247,14 @@ const categories_api = `${base_api_url}?sheet=Sheet2`;
         displayProducts(allProducts.filter(p => p.name.toLowerCase().includes(val)));
     }
 
-   function confirmOrder() {
-    const details = document.getElementById('cust-details').value;
-    const discount = document.getElementById('cust-discount').value;
-    const city = document.getElementById('cust-city').value;
-    
-    // التحقق من أن الكمية والمحافظة وليست فارغة
-    if(!details.trim()) return alert("يرجى إدخال الكمية المطلوبة");
-    if(!city) return alert("يرجى اختيار المحافظة");
-
-    // إعداد رسالة الواتساب
-    let msg = `طلب جديد 🛍️\nالمنتج: ${selectedProduct}\nالكمية: ${details}\nالمحافظة: ${city}`;
-    
-    // إضافة كود الخصم فقط إذا قام المستخدم بكتابته
-    if (discount.trim() !== '') {
-        msg += `\nكود الخصم: ${discount}`;
+    function confirmOrder() {
+        const details = document.getElementById('cust-details').value;
+        const phone = document.getElementById('cust-phone').value;
+        const city = document.getElementById('cust-city').value;
+        if(!phone) return alert("يرجى إدخال الهاتف");
+        const msg = `طلب جديد 🛍️\nالمنتج: ${selectedProduct}\nالتفاصيل: ${details}\nالهاتف: ${phone}\nالمحافظة: ${city}\nالرابط: ${selectedImg}`;
+        window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
     }
-    
-    msg += `\nصورة المنتج: ${selectedImg}`;
-
-    window.open(`https://wa.me/9647711797380?text=${encodeURIComponent(msg)}`);
-}
- 
 let deferredPrompt;
 // قمنا بتعريف الزر هنا للتأكد من التقاطه
 window.addEventListener('beforeinstallprompt', (e) => {
@@ -301,7 +285,6 @@ document.addEventListener('click', (e) => {
 </body>
 
 </html>
-
 
 
 
